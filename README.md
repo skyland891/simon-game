@@ -10,7 +10,7 @@ Try them all :fire:
 
 Use all your mind force for make some fun :smiley:
 
-You can play it here
+You can play it [here](https://skyland891.github.io/simon-game/)
 
 ### Using libraries
 
