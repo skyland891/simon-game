@@ -12,7 +12,7 @@ Use all your mind force for make some fun :smiley:
 
 You can play it here
 
-## Using libraries
+### Using libraries
 
 The app was styled with [styled-components](https://styled-components.com/)
 
