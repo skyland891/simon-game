@@ -5,7 +5,8 @@ import timeout from "./utils/util";
 import ModeButton from "./components/ModeButton";
 import gitLogo64 from "./img/GitHub-Mark-Light-64px.png"
 import gitLogo32 from "./img/GitHub-Mark-Light-32px.png"
-import rulesImg from "./img/rules.svg"
+import rulesImg64 from "./img/rules-64px.png"
+import rulesImg32 from "./img/rules-32px.png"
 
 const Header = styled.header`
 display: flex;
@@ -18,16 +19,38 @@ padding: 10px 40px 0 40px;
 }
 `
 const Rules = styled.span`
-mask-image: url("${rulesImg}");
-background-color: white;
-mask-repeat: no-repeat;
+position: relative;
+background-image: url("${rulesImg64}");
+background-repeat: no-repeat;
 width: 64px;
 height: 64px;
-mask-position: center;
+background-position: center;
+cursor: pointer;
 @media(min-width: 320px) and (max-width: 768px) {
+  background-image: url("${rulesImg32}");
   width: 32px;
   height: 32px;
   padding: 0 20px;
+}
+::after {
+  content: "Rules";
+  position: absolute;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.0);
+  opacity: 0;
+  color: white;
+  min-width: 50px;
+  min-height: 30px;
+  bottom: -30px;
+  left: 0px;
+  text-align: center;
+  padding-top: 5px;
+  border-radius: 10px;
+  transition: all .2s;
+}
+:hover::after {
+  opacity: 1;
+  background-color: rgba(0,0,0,0.7);
 }
 `
 
@@ -140,6 +163,7 @@ gap: 0.5rem;
 `
 
 const Github = styled.a`
+position: relative;
 background-image: url(${gitLogo64});
 background-repeat: no-repeat;
 background-position: center;
@@ -149,6 +173,26 @@ width: 64px;
   background-image: url(${gitLogo32});
   height: 32px;
   width: 32px;
+}
+::after {
+  content: "My GitHub";
+  position: absolute;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.0);
+  opacity: 0;
+  color: white;
+  min-width: 80px;
+  min-height: 30px;
+  bottom: -40px;
+  left: 0px;
+  text-align: center;
+  padding-top: 5px;
+  border-radius: 10px;
+  transition: all .2s;
+}
+:hover::after {
+  opacity: 1;
+  background-color: rgba(0,0,0,0.7);
 }
 `
 
