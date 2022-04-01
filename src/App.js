@@ -3,6 +3,33 @@ import Tile from "./components/Tile";
 import styled from 'styled-components'
 import timeout from "./utils/util";
 import ModeButton from "./components/ModeButton";
+import gitLogo64 from "./img/GitHub-Mark-Light-64px.png"
+import gitLogo32 from "./img/GitHub-Mark-Light-32px.png"
+import rulesImg from "./img/rules.svg"
+
+const Header = styled.header`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+background-color: #383838;
+padding: 10px 40px 0 40px;
+@media(min-width: 320px) and (max-width: 768px) {
+  padding: 10px 20px 0 20px;
+}
+`
+const Rules = styled.span`
+mask-image: url("${rulesImg}");
+background-color: white;
+mask-repeat: no-repeat;
+width: 64px;
+height: 64px;
+mask-position: center;
+@media(min-width: 320px) and (max-width: 768px) {
+  width: 32px;
+  height: 32px;
+  padding: 0 20px;
+}
+`
 
 const TileGroup = styled.div`
 display: grid;
@@ -109,6 +136,19 @@ gap: 0.5rem;
   top: -130px;
   right: 50%;
   margin-right: -110px;
+}
+`
+
+const Github = styled.a`
+background-image: url(${gitLogo64});
+background-repeat: no-repeat;
+background-position: center;
+height: 64px;
+width: 64px;
+@media(min-width: 320px) and (max-width: 768px) {
+  background-image: url(${gitLogo32});
+  height: 32px;
+  width: 32px;
 }
 `
 
@@ -299,6 +339,11 @@ function App() {
   }
 
   return( 
+    <div>
+    <Header>
+      <Github href="https://github.com/skyland891/simon-game" target="_blank"></Github>
+      <Rules></Rules>
+    </Header>  
     <Simon>
       <PointsWrapper>
         <PointTracker>Points: {points}</PointTracker>
@@ -317,6 +362,8 @@ function App() {
         </ModeGroup>
       </GameField>
     </Simon>
+    </div>
+
   )
 }
 
