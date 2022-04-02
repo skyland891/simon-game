@@ -7,6 +7,7 @@ import gitLogo64 from "./img/GitHub-Mark-Light-64px.png"
 import gitLogo32 from "./img/GitHub-Mark-Light-32px.png"
 import rulesImg64 from "./img/rules-64px.png"
 import rulesImg32 from "./img/rules-32px.png"
+import RulesModal from "./components/RulesModal";
 
 const Header = styled.header`
 display: flex;
@@ -18,7 +19,7 @@ padding: 10px 40px 0 40px;
   padding: 10px 20px 0 20px;
 }
 `
-const Rules = styled.span`
+const RulesBtn = styled.span`
 position: relative;
 background-image: url("${rulesImg64}");
 background-repeat: no-repeat;
@@ -41,15 +42,16 @@ cursor: pointer;
   color: white;
   min-width: 50px;
   min-height: 30px;
-  bottom: -30px;
+  bottom: 0px;
   left: 0px;
   text-align: center;
   padding-top: 5px;
   border-radius: 10px;
-  transition: all .2s;
+  transition: all .3s;
 }
 :hover::after {
   opacity: 1;
+  bottom: -35px;
   background-color: rgba(0,0,0,0.7);
 }
 `
@@ -183,15 +185,16 @@ width: 64px;
   color: white;
   min-width: 80px;
   min-height: 30px;
-  bottom: -40px;
+  bottom: 0;
   left: 0px;
   text-align: center;
   padding-top: 5px;
   border-radius: 10px;
-  transition: all .2s;
+  transition: all .25s;
 }
 :hover::after {
   opacity: 1;
+  bottom: -40px;
   background-color: rgba(0,0,0,0.7);
 }
 `
@@ -261,7 +264,7 @@ function App() {
     expert: false,
     impossible: false,
   };
-
+  // States
   const [originalCombo, setOriginalCombo] = useState([]);
   const [inputCombo, setInputCombo] = useState([]);
   const [points, setPoints] = useState(0);
@@ -275,7 +278,9 @@ function App() {
   const [isActive, setActive] = useState({...initialActive});
   const [mode, setMode] = useState(modeList[0]);
   const [colorArray, setColorArray] = useState([...initialColorArray]);
+  const [ruleActive, setRuleActive] = useState(true);
 
+  //Functions
   function startGame() {
     let initialColor = colorArray[Math.floor(Math.random() * 4)];
     setOriginalCombo([initialColor]);
@@ -337,6 +342,10 @@ function App() {
     setDisabled(false);
   }
 
+  function toggleRulesModal(active) {
+    setRuleActive(active);
+  }
+
   function handleChangeMode(modeName) {
     const activeMode = {...initialActive};
     for(let mode in activeMode) {
@@ -384,28 +393,29 @@ function App() {
 
   return( 
     <div>
-    <Header>
-      <Github href="https://github.com/skyland891/simon-game" target="_blank"></Github>
-      <Rules></Rules>
-    </Header>  
-    <Simon>
-      <PointsWrapper>
-        <PointTracker>Points: {points}</PointTracker>
-      </PointsWrapper>
-      <GameField>
-        <StartButton onClick={startGame}>Start</StartButton>
-        <TileGroup>
-          {
-            colorArray.map(color => <Tile key= {color.id} data-key= {color.id} disabled= {isDisabled} color= {color.color} flash= {flash} clickFunction = {addCombinationItem}/>)
-          }
-        </TileGroup>
-        <ModeGroup>
-          {
-            modeList.map(mode => <ModeButton key= {mode.id} active= {isActive[mode.name]} modeName= {mode.name} changeMode= {handleChangeMode}/>)
-          }
-        </ModeGroup>
-      </GameField>
-    </Simon>
+      <RulesModal closeModal= {() => {toggleRulesModal(false)}} ruleActive= {ruleActive}/>
+      <Header>
+        <Github href="https://github.com/skyland891/simon-game" target="_blank"></Github>
+        <RulesBtn onClick= {() => {toggleRulesModal(true)}}></RulesBtn>
+      </Header>  
+      <Simon>
+        <PointsWrapper>
+          <PointTracker>Points: {points}</PointTracker>
+        </PointsWrapper>
+        <GameField>
+          <StartButton onClick={startGame}>Start</StartButton>
+          <TileGroup>
+            {
+              colorArray.map(color => <Tile key= {color.id} data-key= {color.id} disabled= {isDisabled} color= {color.color} flash= {flash} clickFunction = {addCombinationItem}/>)
+            }
+          </TileGroup>
+          <ModeGroup>
+            {
+              modeList.map(mode => <ModeButton key= {mode.id} active= {isActive[mode.name]} modeName= {mode.name} changeMode= {handleChangeMode}/>)
+            }
+          </ModeGroup>
+        </GameField>
+      </Simon>
     </div>
 
   )
