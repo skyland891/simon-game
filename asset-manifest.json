@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/simon-game/static/css/main.e6c13ad2.css",
-    "main.js": "/simon-game/static/js/main.9cbe588f.js",
+    "main.js": "/simon-game/static/js/main.c3c63a27.js",
     "static/js/787.774bf5fd.chunk.js": "/simon-game/static/js/787.774bf5fd.chunk.js",
     "static/media/error.wav": "/simon-game/static/media/error.19d5e99edd667cdc1325.wav",
     "static/media/simonSound1.mp3": "/simon-game/static/media/simonSound1.be139b4b99ec2b2fae15.mp3",
@@ -10,11 +10,11 @@
     "static/media/simonSound4.mp3": "/simon-game/static/media/simonSound4.60f3cc7d5750955854a5.mp3",
     "index.html": "/simon-game/index.html",
     "main.e6c13ad2.css.map": "/simon-game/static/css/main.e6c13ad2.css.map",
-    "main.9cbe588f.js.map": "/simon-game/static/js/main.9cbe588f.js.map",
+    "main.c3c63a27.js.map": "/simon-game/static/js/main.c3c63a27.js.map",
     "787.774bf5fd.chunk.js.map": "/simon-game/static/js/787.774bf5fd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.9cbe588f.js"
+    "static/js/main.c3c63a27.js"
   ]
 }
