@@ -354,14 +354,20 @@ function App() {
         }));
       }
     }
+    await timeout(mode.speed);
     setDisabled(false);
   }
 
   function playAudio(color) {
     if(color) {
+      AudioLibrary[color.color].playbackRate = 2.0;
+      if(mode.name === "medium") {
+        AudioLibrary[color.color].playbackRate = 3.6;
+      }
       AudioLibrary[color.color].play();
     }
     else {
+      console.log("error");
       AudioLibrary["error"].play();
     }
   }
