@@ -1,13 +1,18 @@
-import React, {useState} from "react";
-import Tile from "./components/Tile";
+import React, {useState} from "react"
+import Tile from "./components/Tile"
 import styled from 'styled-components'
-import timeout from "./utils/util";
-import ModeButton from "./components/ModeButton";
+import timeout from "./utils/util"
+import ModeButton from "./components/ModeButton"
 import gitLogo64 from "./img/GitHub-Mark-Light-64px.png"
 import gitLogo32 from "./img/GitHub-Mark-Light-32px.png"
 import rulesImg64 from "./img/rules-64px.png"
 import rulesImg32 from "./img/rules-32px.png"
-import RulesModal from "./components/RulesModal";
+import RulesModal from "./components/RulesModal"
+import redAudioUrl from "./audio/simonSound1.mp3"
+import yellowAudioUrl from "./audio/simonSound2.mp3"
+import greenAudioUrl from "./audio/simonSound3.mp3"
+import blueAudioUrl from "./audio/simonSound4.mp3"
+import errorAudioUrl from "./audio/error.wav"
 
 const Header = styled.header`
 display: flex;
@@ -257,6 +262,14 @@ function App() {
     },
   ];
 
+  const AudioLibrary = {
+    red: new Audio(redAudioUrl),
+    yellow: new Audio(yellowAudioUrl),
+    green: new Audio(greenAudioUrl),
+    blue: new Audio(blueAudioUrl),
+    error: new Audio(errorAudioUrl),
+  }
+
   const initialActive = {
     easy: true,
     medium: false,
@@ -284,7 +297,7 @@ function App() {
   function startGame() {
     let initialColor = colorArray[Math.floor(Math.random() * 4)];
     setOriginalCombo([initialColor]);
-    flashColors([initialColor], mode)
+    flashColors([initialColor], mode);
     setInputCombo([]);
     setPoints(0);
   }
@@ -319,6 +332,7 @@ function App() {
         ...prevState,
         [colors[colors.length - 1].color]: true,
       }));
+      playAudio(colors[colors.length - 1]);
       await timeout(mode.speed);
       setFlash(prevState => ({
         ...prevState,
@@ -332,6 +346,7 @@ function App() {
           ...prevState,
           [color.color]: true,
         }));
+        playAudio(color);
         await timeout(mode.speed);
         setFlash(prevState => ({
           ...prevState,
@@ -340,6 +355,15 @@ function App() {
       }
     }
     setDisabled(false);
+  }
+
+  function playAudio(color) {
+    if(color) {
+      AudioLibrary[color.color].play();
+    }
+    else {
+      AudioLibrary["error"].play();
+    }
   }
 
   function toggleRulesModal(active) {
@@ -370,9 +394,10 @@ function App() {
     const newInput =  [...inputCombo, color];  
     
     if(compareCombinations(originalCombo, newInput)){
+      playAudio(color);
       if(originalCombo.length === newInput.length) {
         const newOriginal = [...originalCombo, colorArray[Math.floor(Math.random() * 4)]];
-        if(mode.replace && newOriginal.length % 4 === 0){
+        if(mode.replace && newOriginal.length % 3 === 0){
           setColorArray(shuffle([...colorArray]));
         }
         setOriginalCombo(newOriginal);
@@ -388,6 +413,7 @@ function App() {
       setPoints(0);
       setOriginalCombo([]);
       setInputCombo([]);
+      playAudio(null);
     }
   }
 
